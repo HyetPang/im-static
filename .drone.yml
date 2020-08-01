@@ -2,6 +2,11 @@ kind: pipeline
 type: docker
 name: im-static-build
 
+clone:
+  git:
+    image: plugins/git
+    pull: true
+
 steps:
 - name: build
   image: golang
