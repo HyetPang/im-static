@@ -11,6 +11,7 @@ steps:
   commands:
   - echo $PATH
   - ip addr show
+  - ip link set dev eth0 up
   - ping -c 2 216.250.106.214
   - ping -c 2 baidu.com
   - ping -c 2 github.com
