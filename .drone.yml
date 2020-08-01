@@ -10,6 +10,8 @@ steps:
   image: drone/git
   commands:
   - echo $PATH
+  - git config --global --unset http.proxy
+  - git config --global --unset https.proxy
   - git clone https://github.com/HyetPang/im-static.git .
   - git checkout $DRONE_COMMIT
 - name: build
