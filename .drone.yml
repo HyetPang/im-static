@@ -14,10 +14,10 @@ steps:
     path: /go
   commands:
   - go build -o im-static main.go
-  - docker tag im-static-v1:1.0 im-static-v1-old:1.0 || echo 'WARNNING:: No such image'
-  - docker rmi im-static-v1:1.0 || echo 'WARNNING:: No such image'
+  - docker tag im-static-v1:1.0 im-static-v1-old:1.0 || echo \"WARNNING:: No such image\"
+  - docker rmi im-static-v1:1.0 || echo \"WARNNING:: No such image\"
   - docker build -t im-static:1.0 .
-  - docker rm -f im-static-v1 || echo 'WARNNING:: No such container'
+  - docker rm -f im-static-v1 || echo \"WARNNING:: No such container\"
   - docker run -d -p 18800:18800
   when:
     branch:
