@@ -7,7 +7,7 @@ clone:
 
 steps:
 - name: clone
-  image: drone/git
+  image: plugins/git
   commands:
   - echo $PATH
   - cat /etc/hosts
