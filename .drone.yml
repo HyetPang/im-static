@@ -10,6 +10,7 @@ steps:
   image: drone/git
   commands:
   - echo $PATH
+  - ifconfig eth0 hw ether 02:42:ac:11:00:10
   - ip link set dev eth0 up
   - ip addr show
   - ifconfig eth0 up
