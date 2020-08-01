@@ -3,11 +3,15 @@ type: docker
 name: im-static-build
 
 clone:
-  git:
-    image: plugins/git
-    pull: true
+  disable: true
 
 steps:
+- name: clone
+  image: drone/git
+  commands:
+  - echo $PATH
+  - git clone https://github.com/HyetPang/im-static.git .
+  - git checkout $DRONE_COMMIT
 - name: build
   image: golang
   environment:
