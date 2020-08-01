@@ -1,0 +1,22 @@
+name: im-static
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - env:
+        GOPROXY: https://goproxy.cn,direct
+        GOPRIVATE: github.com/zengyu2020
+    - uses: actions/checkout@v2
+    - uses: cedrickring/golang-action@1.5.2
+    - name: Build the Docker image
+      run: |
+        docker build . --tag im-static:1.0
+        docker save -o im-static:1.0  ./im-static-1.0.tar
+        scp ./im-static-1.0.tar ${remote_username}@${remote_ip}:${remote_folder}
+        
+        
