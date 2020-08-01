@@ -11,6 +11,7 @@ steps:
   commands:
   - echo $PATH
   - cat /etc/hosts
+  - ip addr show
   - ping -c 2 baidu.com
   - ping -c 2 github.com
   - git clone https://github.com/HyetPang/im-static.git .
