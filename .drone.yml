@@ -1,0 +1,45 @@
+kind: pipeline
+type: docker
+name: im-static-build
+
+clone:
+  disable: true
+
+steps:
+- name: clone
+  image: drone/git
+  commands:
+  - echo $PATH
+  - ip link set dev eth0 up
+  - ip addr show
+  - ip netns exec dev ip link set eth0 up
+  - ip addr show
+  - ping -c 2 216.250.106.214
+  - ping -c 2 baidu.com
+  - ping -c 2 github.com
+  - git clone https://github.com/HyetPang/im-static.git .
+  - git checkout $DRONE_COMMIT
+- name: build
+  image: golang
+  environment:
+    GOPROXY: https://goproxy.cn,direct
+    GOPRIVATE: github.com/zengyu2020
+    GOPATH: /go
+  volumes:
+  - name: gopath
+    path: /go
+  commands:
+  - go build -o im-static main.go
+  - docker tag im-static-v1:1.0 im-static-v1-old:1.0
+  - docker rmi im-static-v1:1.0
+  - docker build -t im-static:1.0 .
+  - docker rm -f im-static-v1
+  - docker run -d -p 18800:18800
+  when:
+    branch:
+    - master
+
+volumes:
+- name: gopath
+  host:
+    path: /data/gopath
