@@ -11,7 +11,7 @@ jobs:
     - name: checkout code
       uses: actions/checkout@v2
     - name: deploy docker image
-      uses: cross-the-world/ssh-scp-ssh-pipelines@1.10
+      uses: cross-the-world/ssh-scp-ssh-pipelines@1.1.0
       env:
         WELCOME: "ssh scp ssh pipelines"
         LASTSSH: "Doing something after copying"
