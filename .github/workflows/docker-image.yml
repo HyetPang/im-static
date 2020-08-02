@@ -10,20 +10,41 @@ jobs:
     steps:
     - name: checkout code
       uses: actions/checkout@v2
-    - name: deploy docker image
-      uses: cross-the-world/ssh-scp-ssh-pipelines@1.1.0
-      env:
-        WELCOME: "ssh scp ssh pipelines"
-        LASTSSH: "Doing something after copying"
+    # - name: deploy docker image
+    #   uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+    #   env:
+    #     WELCOME: "ssh scp ssh pipelines"
+    #     LASTSSH: "Doing something after copying"
+    #   with:
+    #     host: ${{ secrets.CI_HOST }}
+    #     user: ${{ secrets.CI_USERNAME }}
+    #     key: ${{ secrets.CI_KEY }}
+    #     port: 22
+    #     connect_timeout: 10s
+    #     scp: |
+    #       ./* => /data/im/im-static-v1/
+    #     last_ssh: |
+    #       cd /data/im/im-static-v1
+    #       docker -t im-static:v1 .
+    #       docker run -d -P im-static:1.0
+    - name: scp code
+      uses: cross-the-world/scp-pipeline@master
       with:
         host: ${{ secrets.CI_HOST }}
         user: ${{ secrets.CI_USERNAME }}
-        key: ${{ secrets.CI_KEY }}
+        pass: ${{ secrets.CI_PASS }}
         port: 22
         connect_timeout: 10s
         scp: |
           ./* => /data/im/im-static-v1/
-        last_ssh: |
+    - name: deploy docker image
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.CI_HOST }}
+        username: ${{ secrets.CI_USERNAME }}
+        key: ${{ secrets.CI_KEY }}
+        port: 22
+        script: |
           cd /data/im/im-static-v1
           docker -t im-static:v1 .
           docker run -d -P im-static:1.0
