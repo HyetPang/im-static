@@ -4,6 +4,7 @@ ENV GOPROXY=https://goproxy.cn,direct
 ENV GOPRIVATE=github.com/zengyu2020
 WORKDIR /go/src/app
 COPY . .
+RUN mkdir ~/.ssh
 COPY /root/.ssh/ ~/.ssh/
 RUN git config --global url."git@github.com:".insteadOf "http://github.com/" && go build -o im-static main.go
 
