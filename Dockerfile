@@ -4,8 +4,7 @@ ENV GOPROXY=https://goproxy.cn,direct
 ENV GOPRIVATE=github.com/zengyu2020
 WORKDIR /go/src/app
 COPY . .
-RUN mkdir ~/.ssh
-COPY /root/.ssh/ ~/.ssh/
+ADD /root/.ssh/ ~/.ssh/
 RUN git config --global url."git@github.com:".insteadOf "http://github.com/" && go build -o im-static main.go
 
 FROM alpine:latest
@@ -21,3 +20,7 @@ RUN mkdir /lib64 && \
  chmod +x im-static
 ENTRYPOINT ["./im-static"]
 EXPOSE 8091
+
+
+
+docker run -d -v /var/run/docker.sock:/var/run/docker.sock -e DRONE_RPC_PROTO=http -e DRONE_RPC_HOST=216.250.106.214:8090 -e DRONE_RPC_SECRET=drone_rpc_secret -e DRONE_RUNNER_CAPACITY=2 -e DRONE_RUNNER_NAME=MyCloudServer -e DRONE_LOGS_TRACE=true -p 8080:3000 --restart=always --name drone_runner drone/drone-runner-docker
