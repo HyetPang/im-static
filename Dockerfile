@@ -4,7 +4,8 @@ ENV GOPROXY=https://goproxy.cn,direct
 ENV GOPRIVATE=github.com/zengyu2020
 WORKDIR /go/src/app
 COPY . .
-RUN  git config --global url."https://github.com/zengyu2020".insteadOf "git@gitlab.com:zengyu2020" && echo "machine github.com/zengyu2020 login Hyetpang password b4486da5cf22d0b71046d25d194b31be839d830f" > ~/.netrc && go build -o im-static main.go
+RUN  git config --global url."https://oauth2:${b4486da5cf22d0b71046d25d194b31be839d830f}@github.com".insteadOf \
+  "https://github.com" && echo "machine github.com/zengyu2020 login Hyetpang password b4486da5cf22d0b71046d25d194b31be839d830f" > ~/.netrc && go build -o im-static main.go
 
 FROM alpine:latest
 WORKDIR /program
