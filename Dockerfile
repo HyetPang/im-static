@@ -4,7 +4,7 @@ ENV GOPROXY=https://goproxy.cn,direct
 ENV GOPRIVATE=github.com/zengyu2020
 WORKDIR /go/src/app
 COPY . .
-RUN  git config --global url."https://github.com/".insteadOf "git@github.com:" && git config --global http.extraheader PRIVATE-TOKEN:b4486da5cf22d0b71046d25d194b31be839d830f && go build -o im-static main.go
+RUN  git config --global url."git@gitlab.com:zengyu2020".insteadOf "http://github.com/zengyu2020" && git config --global http.extraheader "PRIVATE-TOKEN: b4486da5cf22d0b71046d25d194b31be839d830f" && go build -o im-static main.go
 
 FROM alpine:latest
 WORKDIR /program
