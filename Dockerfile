@@ -9,5 +9,5 @@ RUN mkdir /lib64 && \
  ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
  echo "Asia/Shanghai" > /etc/timezone && \
  chmod +x im-static
-ENTRYPOINT ["./im-static"]
+ENTRYPOINT ["./im-static", "--http.listen=8091","redis.address=216.250.106.214:6379","redis.db=1"]
 EXPOSE 8091

@@ -24,12 +24,11 @@ steps:
         path: /var/run/docker.sock
     commands:
       - ls -a
-      - docker build -t im-static-v1:1.0 .
-      - docker tag im-static-v1:1.0 im-static-v1-old:1.0 || echo "no such images."
-      - docker rmi im-static-v1:1.0 || echo "no such images."
-      - docker build -t im-static:1.0 .
       - docker rm -f im-static-v1 || echo "no such images."
-      - docker run -d -p 18800:18800
+      - docker container  rm -im-static-v1 || echo "no such images."
+      - docker rmi im-static-v1:1.0 || echo "no such images."
+      - docker build -t im-static-v1:1.0 .
+      - docker run -d -p 8091:8091 im-static-v1:1.0
 
 volumes:
   - name: gopath
