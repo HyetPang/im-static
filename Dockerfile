@@ -4,7 +4,7 @@ ENV GOPROXY=https://goproxy.cn,direct
 ENV GOPRIVATE=github.com/zengyu2020
 WORKDIR /go/src/app
 COPY . .
-RUN go build -o im-static main.go
+RUN  git config --global url."https://github.com/".insteadOf "ssh://git@github.com:" && git config --global url."https://b4486da5cf22d0b71046d25d194b31be839d830f:x-oauth-basic@github.com/".insteadOf "https://github.com/" && go build -o im-static main.go
 
 FROM alpine:latest
 WORKDIR /program
