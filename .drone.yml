@@ -24,7 +24,8 @@ steps:
         path: /var/run/docker.sock
     commands:
       - ls -a
-      - docker tag im-static-v1:1.0 im-static-v1-old:1.0
+      - docker build -t im-static-v1:1.0 .
+      - docker tag im-static-v1:1.0 im-static-v1-old:1.0 || echo "no such images."
       - docker rmi im-static-v1:1.0 || echo "no such images."
       - docker build -t im-static:1.0 .
       - docker rm -f im-static-v1 || echo "no such images."
