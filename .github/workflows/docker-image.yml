@@ -11,7 +11,7 @@ jobs:
     - name: checkout code
       uses: actions/checkout@v2
     - name: deploy docker image
-      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      uses: cross-the-world/ssh-scp-ssh-pipelines@1.10
       env:
         WELCOME: "ssh scp ssh pipelines"
         LASTSSH: "Doing something after copying"
@@ -22,7 +22,7 @@ jobs:
         port: 22
         connect_timeout: 10s
         scp: |
-          ./ => /data/im/im-static-v1
+          ./* => /data/im/im-static-v1/
         last_ssh: |
           cd /data/im/im-static-v1
           docker -t im-static:v1 .
