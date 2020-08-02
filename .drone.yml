@@ -25,9 +25,9 @@ steps:
     commands:
       - ls -a
       - docker tag im-static-v1:1.0 im-static-v1-old:1.0
-      - docker rmi im-static-v1:1.0
+      - docker rmi im-static-v1:1.0 || echo "no such images."
       - docker build -t im-static:1.0 .
-      - docker rm -f im-static-v1
+      - docker rm -f im-static-v1 || echo "no such images."
       - docker run -d -p 18800:18800
 
 volumes:
