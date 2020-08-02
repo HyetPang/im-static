@@ -46,5 +46,5 @@ jobs:
         port: 22
         script: |
           cd /data/im/im-static-v1
-          docker -t im-static:v1 .
+          docker build -t im-static:v1 .
           docker run -d -P im-static:1.0
