@@ -21,8 +21,9 @@ jobs:
         key: ${{ secrets.CI_KEY }}
         port: 22
         connect_timeout: 10s
-        scp: ./im-static-1.0.tar => /data/docker/images/
+        scp: |
+          ./ => /data/im/im-static-v1
         last_ssh: |
-          cd /data/docker/images
-          docker load --input im-static-1.0.tar
+          cd /data/im/im-static-v1
+          docker -t im-static:v1 .
           docker run -d -P im-static:1.0
