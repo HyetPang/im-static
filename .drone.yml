@@ -23,12 +23,11 @@ steps:
       - name: external-docker
         path: /var/run/docker.sock
     commands:
-      - ls -a
       - docker rm -f im-static-v1 || echo "no such images."
       - docker container  rm -im-static-v1 || echo "no such images."
       - docker rmi im-static-v1:1.0 || echo "no such images."
       - docker build -t im-static-v1:1.0 .
-      - docker run -d --restart=always -p 8091:8091 im-static-v1:1.0
+      - docker run -d --restart=always -p 8091:8091 --name im-static-v1  im-static-v1:1.0
 
 volumes:
   - name: gopath
