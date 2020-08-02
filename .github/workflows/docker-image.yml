@@ -42,7 +42,7 @@ jobs:
       with:
         host: ${{ secrets.CI_HOST }}
         username: ${{ secrets.CI_USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        password: ${{ secrets.CI_PASS }}
         port: 22
         script: |
           cd /data/im/im-static-v1
